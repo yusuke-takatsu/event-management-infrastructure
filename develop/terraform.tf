@@ -18,9 +18,6 @@ data "aws_caller_identity" "current" {}
 provider "aws" {
   region = "ap-northeast-1"
   default_tags {
-    tags = {
-      Env    = "dev"
-      System = "share-money"
-    }
+    tags = local.default_tags
   }
 }
