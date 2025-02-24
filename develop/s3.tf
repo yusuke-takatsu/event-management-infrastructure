@@ -5,10 +5,7 @@ resource "aws_s3_bucket" "uploads" {
   bucket = "${local.project}-${local.env}-uploads"
 }
 
-resource "aws_s3_bucket_acl" "uploads" {
-  bucket = aws_s3_bucket.uploads.id
-  acl    = private
-}
+# Object Ownership が「Bucket owner enforced」の場合は、ACL自体が無効なため、ACLの設定は不要
 
 resource "aws_s3_bucket_public_access_block" "uploads" {
   bucket = aws_s3_bucket.uploads.id
@@ -20,7 +17,7 @@ resource "aws_s3_bucket_public_access_block" "uploads" {
 }
 
 resource "aws_s3_bucket_server_side_encryption_configuration" "uploads" {
-  bucket = aws_s3_bucket.uploads.id
+  bucket = aws_s3_bucket.uploads.bucket
 
   rule {
     apply_server_side_encryption_by_default {
@@ -45,10 +42,15 @@ data "aws_iam_policy_document" "uploads_oai" {
   statement {
     actions   = ["s3:GetObject"]
     resources = ["${aws_s3_bucket.uploads.arn}/*"]
+    
+    principals {
+      type        = "Service"
+      identifiers = ["cloudfront.amazonaws.com"]
+    }
   }
 
   statement {
-    actions   = ["s3:ListObject"]
+    actions   = ["s3:ListBucket"]
     resources = [aws_s3_bucket.uploads.arn]
 
     principals {
