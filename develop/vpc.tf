@@ -50,6 +50,7 @@ resource "aws_route_table" "public" {
   }
 }
 
+# 関連付け (Association)
 resource "aws_route" "default_gw" {
   for_each = toset(local.availability_zones)
   route_table_id = aws_route_table.public[each.key].id
