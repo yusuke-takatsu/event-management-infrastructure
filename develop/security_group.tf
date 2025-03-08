@@ -58,9 +58,9 @@ resource "aws_security_group_rule" "app_ingress_8880_8882_tcp_alb" {
 
 resource "aws_security_group_rule" "app_egress_8880_8882_tcp_app" {
   security_group_id = aws_security_group.app.id
-  description       = "ALB to APP"
+  description       = "APP outbound to Internet"
   type              = "egress"
-  protocol          = "-1"
+  protocol          = "-1" # すべてのプロトコル
   from_port         = 0
   to_port           = 0
   cidr_blocks       = ["0.0.0.0/0"]
