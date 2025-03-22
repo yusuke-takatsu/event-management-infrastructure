@@ -6,5 +6,6 @@ locals {
     project     = local.project
     Environment = local.env
   }
-  base_domain = "event-management"
+  github_repository_prefix = local.project
+  base_domain              = "event-management"
 }
