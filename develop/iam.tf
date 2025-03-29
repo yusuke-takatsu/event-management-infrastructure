@@ -59,6 +59,7 @@ data "aws_iam_policy_document" "github_actions" {
       "ecr:CompleteLayerUpload",
       "ecr:PutImage",
       "ecr:UploadLayerPart",
+      "ecr:BatchGetImage",
     ]
     resources = [
       aws_ecr_repository.app.arn,
