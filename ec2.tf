@@ -1,4 +1,4 @@
-resource "aws_instance" "basition" {
+resource "aws_instance" "bastion" {
   ami = data.aws_ssm_parameter.al2023.value
   # iam_instance_profile = aws_iam_instance_profile.bastion_instance
   instance_type               = "t2.micro"
@@ -33,7 +33,7 @@ resource "aws_instance" "basition" {
 }
 
 resource "aws_eip" "bastion" {
-  instance = aws_instance.basition.id
+  instance = aws_instance.bastion.id
   domain   = "vpc"
 
   tags = {
