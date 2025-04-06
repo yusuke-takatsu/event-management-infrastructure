@@ -1,5 +1,5 @@
 resource "aws_instance" "bastion" {
-  ami = data.aws_ssm_parameter.al2023.value
+  ami = data.aws_ssm_parameter.bastion.value
   # iam_instance_profile = aws_iam_instance_profile.bastion_instance
   instance_type               = "t2.micro"
   key_name                    = aws_key_pair.bastion.key_name
